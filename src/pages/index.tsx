@@ -1,33 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import clsx from "clsx";
 import { useQRCode } from "next-qrcode";
-
-// interface DataDisplayProps {
-//   data: Example[];
-// }
-
-// function DataDisplay({ data }: DataDisplayProps) {
-//   return (
-//     <div className="flex flex-col items-center gap-2">
-//       <p className="text-2xl text-white">
-//         {data ? data.length : "Loading tRPC query..."}
-//       </p>
-//       {[...data].map((item: Example, index: number) => (
-//         <p key={index} className="text-2xl text-white">
-//           {item.id.toString()}
-//         </p>
-//       ))}
-//     </div>
-//   );
-// }
-
-// function generateQRCodeUrl(url: string, size: number): string {
-//   const encodedUrl = encodeURIComponent(url);
-//   return `https://api.qrserver.com/v1/create-qr-code/?data=${encodedUrl}&amp;size=${size}x${size}`;
-// }
 
 function QRCodeImage({ url, size }: { url: string; size: number }) {
   const normalizedUrl =
@@ -135,27 +110,3 @@ export default function Home() {
     </>
   );
 }
-
-// function AuthShowcase() {
-//   const { data: sessionData } = useSession();
-
-//   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-//     undefined, // no input
-//     { enabled: sessionData?.user !== undefined }
-//   );
-
-//   return (
-//     <div className="flex flex-col items-center justify-center gap-4">
-//       <p className="text-center text-2xl text-white">
-//         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-//         {secretMessage && <span> - {secretMessage}</span>}
-//       </p>
-//       <button
-//         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-//         onClick={sessionData ? () => void signOut() : () => void signIn()}
-//       >
-//         {sessionData ? "Sign out" : "Sign in"}
-//       </button>
-//     </div>
-//   );
-// }
