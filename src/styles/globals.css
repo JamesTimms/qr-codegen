@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  overflow: auto;
+}
+
+body::before {
+  /* Fix bug with background scroll on phones */
+  content: "";
+  position: fixed;
+  z-index: -1;
+  display: block;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background-image: linear-gradient(to bottom, #3f8a84, #1395a6);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-image: linear-gradient(to bottom, #3f8a84, #1395a6);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent } from "react";
 import clsx from "clsx";
 import { useQRCode } from "next-qrcode";
 
@@ -15,8 +15,16 @@ function QRCodeImage({ url, size }: { url: string; size: number }) {
     <div className="flex flex-col items-center gap-2 rounded p-4">
       <p className="p-1 text-2xl text-white">Scan me</p>
       <QRCode url={encodedUrl} size={size} />
-      <a href={encodedUrl} className="p-1">
-        <p className="p-2 text-xl text-white">🔗 {url}</p>
+      <a
+        href={encodedUrl}
+        title={url}
+        target="_blank"
+        rel="noopener"
+        className="flex w-full justify-center p-1"
+      >
+        <p className="overflow break-all p-2 text-center text-xl text-white">
+          🔗 {url}
+        </p>
       </a>
     </div>
   );
@@ -44,15 +52,7 @@ function QRCode({ url, size }: { url: string; size: number }) {
 
 export default function Home() {
   const [url, setUrl] = useState("");
-  const [submittedUrl, setSubmittedUrl] = useState("");
-  const [isValidURL, setIsValidURL] = useState(true);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (isUrlValid(url)) {
-      setSubmittedUrl(url);
-    }
-  };
+  const [isValidURL, setIsValidURL] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
@@ -81,30 +81,21 @@ export default function Home() {
         <meta name="description" content="QR code generator" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#3f8a84] to-[#1395a6]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col items-center gap-4"
-          >
-            <input
-              type="text"
-              id="urlInput"
-              placeholder="enter url..."
-              value={url}
-              onChange={handleChange}
-              className={clsx("rounded p-2 text-lg", {
-                "border-2 border-red-500 text-red-700": !isValidURL,
-              })}
-            />
-            <button
-              type="submit"
-              className="rounded bg-slate-700 p-2 text-white"
-            >
-              Generate QR Code
-            </button>
-          </form>
-          {submittedUrl && <QRCodeImage url={submittedUrl} size={300} />}
+      <main className="flex min-h-screen flex-col items-center justify-center">
+        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 lg:px-16">
+          <input
+            type="text"
+            id="urlInput"
+            placeholder="enter url..."
+            value={url}
+            onChange={handleChange}
+            className={clsx("w-full rounded p-2 text-lg lg:w-1/2", {
+              "border-2 border-red-500 text-red-700": !isValidURL,
+            })}
+          />
+          {(isValidURL && <QRCodeImage url={url} size={320} />) || (
+            <QRCodeImage url={"https://qrbam.boo/"} size={320} />
+          )}
         </div>
       </main>
     </>
