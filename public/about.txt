@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Mynerve
+- Font Author: Copyright 2022 The Mynerve Project Authors (https://github.com/carolinashort/MyNerve)
+- Font Source: http://fonts.gstatic.com/s/mynerve/v2/P5sCzZKPdNjb4jt7xCRuiZ-uydg.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
