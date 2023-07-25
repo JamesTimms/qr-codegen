@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import type { ChangeEvent } from "react";
+import { useEffect, useRef } from "react";
 import clsx from "clsx";
 import { useQRCode } from "next-qrcode";
 
@@ -53,6 +54,11 @@ function QRCode({ url, size }: { url: string; size: number }) {
 export default function Home() {
   const [url, setUrl] = useState("");
   const [isValidURL, setIsValidURL] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value;
@@ -84,11 +90,13 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 lg:px-16">
           <input
+            ref={inputRef}
             type="text"
             id="urlInput"
             placeholder="enter url..."
             value={url}
             onChange={handleChange}
+            aria-label="Enter URL"
             className={clsx("w-full rounded p-2 text-lg lg:w-1/2", {
               "border-2 border-red-500 text-red-700": !isValidURL,
             })}
